@@ -18,13 +18,16 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
+
       - name: Install dependencies
         working-directory: MCSniperRust-0.1.4
         run: npm install
 
       - name: Build
         working-directory: MCSniperRust-0.1.4
-        run: npx tauri build
+        run: tauri build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
