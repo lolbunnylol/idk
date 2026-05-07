@@ -24,7 +24,7 @@ jobs:
 
       - name: Build
         working-directory: MCSniperRust-0.1.4
-        run: npm run tauri build
+        run: npx tauri build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
