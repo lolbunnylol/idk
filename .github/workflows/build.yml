@@ -1,0 +1,33 @@
+name: Build
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract zip
+        run: Expand-Archive -Path MCSniperRust-0_1_4.zip -DestinationPath . -Force
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: MCSniperRust-0.1.4
+        run: npm install
+
+      - name: Build
+        working-directory: MCSniperRust-0.1.4
+        run: npm run tauri build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MCSniperRust
+          path: MCSniperRust-0.1.4/src-tauri/target/release/MCSniperRust.exe
